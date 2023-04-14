@@ -7,13 +7,22 @@
 }
 
 :root {
+    --green-light: #DAF2D9;
+    --green-darker: #73B172;
+    --red: #F2D9D9;
+    --red-darker: #E36363;
     --detail-purple: #C1B2FA;
     --neutral-color: #746E82;
     --primary-color: #7A5FEC;
     --primary-color-v1: #FBFAFF;
     --primary-color-v2: #F3F0FF; 
     --primary-color-v3: #F9F8FB;
-    --primary-color-v4: hsl(252, 98%, 95%);
+    --primary-color-v4: #ebe6ff;
+    --primary-color-v5: #E9E3F8;
+}
+
+li {
+    list-style-type: none;
 }
 
 body {
@@ -29,6 +38,18 @@ body {
 
 input[type="file"] {
     visibility: hidden;
+}
+
+.purple {
+    background: var(--primary-color-v5);
+}
+
+.green {
+    background: var(--green-light);
+}
+
+.red {
+    background: var(--red);
 }
 
 .upload-wrapper {
@@ -84,8 +105,84 @@ input[type="file"] {
 .inputed-file {
     background: var(--primary-color-v3);
     width: 1000%;
-    padding: 1.5rem 3rem;
+    padding: 1rem 2rem;
     max-width: 40rem;
     border-radius: .5rem;
     box-shadow: 0px 4px 16px #EAE2FD;
+    display: grid;
+    grid-template-columns: 1.125fr 4fr 1fr;
+    grid-template-areas: 
+        "icon-container file-name file-name cancel-btn"
+        "icon-container inputed-file__file-bytes . ."
+        "icon-container progress-bar progress-bar progress-bar";
+    gap: .875rem;
+    transition: transform ease-in 150ms;
+}
+
+.inputed-file:hover {
+    transform: scale(1.02);
+}
+
+.inputed-file__icon-container {
+    grid-area: icon-container;
+    display: flex;
+    place-content: center;
+    place-items: center;
+    border-radius: 1rem;
+}
+
+.inputed-file--error .inputed-file__icon-container {
+    background: var(--red);
+}
+
+.inputed-file__icon-container svg {
+    width: 2rem;
+}
+
+.inputed-file__icon-container.green svg path {
+    fill: var(--green-darker);
+}
+
+.inputed-file--error .inputed-file__icon-container svg path {
+    fill: var(--red-darker);
+}
+
+.inputed-file__progress {
+    height: .5rem;
+    border: none;
+    border-radius: .5rem;
+}
+
+.inputed-file__progress.green::-moz-progress-bar  {
+    background-color: var(--green-darker);
+
+
+}
+
+.inputed-file--error .inputed-file__progress {
+    border: 1px solid var(--red-darker);
+}
+
+.inputed-file__file-name {
+    grid-area: file-name;
+}
+
+.inputed-file__delete-file {
+    grid-area: cancel-btn;
+    place-self: end;
+}
+
+.inputed-file__delete-file svg {
+    position: relative;
+    width: .8rem;
+    cursor: pointer;
+    transition: transform ease-in 100ms;
+}
+
+.inputed-file__delete-file svg:hover {
+    transform: scale(1.2);
+}
+
+.inputed-file__progress {
+    grid-area: progress-bar;
 }
